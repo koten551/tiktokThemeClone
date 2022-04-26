@@ -3,11 +3,16 @@ import { useEffect, useState, useRef } from 'react'
 import './Navbar.css'
 import { AiFillHome } from 'react-icons/ai'
 import { BsCameraVideo, BsPeople } from 'react-icons/bs'
+const EX_BTN_TITLE = 'See all'
+const COMPACT_BTN_TITLE = 'See less'
+const MAX_ITEM_SUGGEST = 10
+const DEFAULT_ITEM_SUGGEST = 4
 
 function SuggestNav() {
 
     const sugNav = useRef()
-    const [sugNavExtra, setSugNavExtra] = useState('See all')
+    const [sugNavExtra, setSugNavExtra] = useState(EX_BTN_TITLE)
+    const [maxItem, setMaxItem] = useState(DEFAULT_ITEM_SUGGEST)
     const [suggestList, setSuggestList] = useState([])
     
     useEffect(() => {
@@ -19,35 +24,35 @@ function SuggestNav() {
 
     const handleSeeAll = () => {
         if(sugNav) {
-            if(sugNavExtra === 'See all') {
-                sugNav.current.style.height = '280px'
-                setSugNavExtra('See less')
+            if(sugNavExtra === EX_BTN_TITLE) {
+                setMaxItem(MAX_ITEM_SUGGEST)
+                setSugNavExtra(COMPACT_BTN_TITLE)
             
             } else {
-                sugNav.current.style.height = '175px'
-                setSugNavExtra('See all')
-                
+                setMaxItem(DEFAULT_ITEM_SUGGEST)
+                setSugNavExtra('See all')              
             }
         }
     }
 
-    
     return (
         <div className="suggest-nav__wrap">
             <h4 style={{ color: 'rgba(0,0,0, 0.5)', fontSize: '15px', paddingTop: "14px" }}>Suggested accounts</h4>
             <ul ref = {sugNav} 
                 className="suggest-nav">
                 {suggestList.map((item, index) => {
-                    return (
-                        <li key = {index}
-                            className="suggest-nav__item">
-                            <img src={item.avatar} alt="avatar"></img>
-                            <a href='#' style={{textDecoration: 'none', color: '#333'}}>
-                                <p style={{ fontWeight: "bold", paddingRight: '5px' }}>{item.account}</p>
-                                <p style={{ fontWeight: "400", color: "rgba(0,0,0, 0.5)", fontSize: "12px", lineHeight: "12px" }}>{item.username}</p>
-                            </a>
-                        </li>
-                    )
+                    if(index < maxItem) {
+                        return (
+                            <li key = {index}
+                                className="suggest-nav__item">
+                                <img src={item.avatar} alt="avatar"></img>
+                                <a href='#' style={{textDecoration: 'none', color: '#333'}}>
+                                    <p style={{ fontWeight: "bold", paddingRight: '5px' }}>{item.account}</p>
+                                    <p style={{ fontWeight: "400", color: "rgba(0,0,0, 0.5)", fontSize: "12px", lineHeight: "12px" }}>{item.username}</p>
+                                </a>
+                            </li>
+                        )
+                    }
                 })}
             </ul>
             <h5  onClick={handleSeeAll}

@@ -28,7 +28,6 @@ const tiktokData = [
   },
 ]
 
-
 function App() {
 
   const [dataBase, setDataBase] = useState([])

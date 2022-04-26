@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useLayoutEffect } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { BsMusicNoteBeamed, BsFillHeartFill } from "react-icons/bs";
 import { FaCommentDots, FaShare } from "react-icons/fa"
 import './Content.css'
@@ -24,27 +24,31 @@ function Header({ avatar, username, account }) {
     )
 }
 
-function Body({ video, likes, comments, shares, description, songName}) {
+function Body({ video, likes, comments, shares, description, songName }) {
+    
+    const videoElement = useRef()
+
     const convertLongNum = (number) => {
         return number / 1000 > 1 ? `${number / 1000},${number % 1000}k` : number
     }
 
     return (
         <div className="row">
-            <div className="col l-2 m-2 c-1"/>
+            <div className="col l-2 m-2 c-1" />
             <div className="col l-8 m-8 c-8">
                 <div className="row">
 
-                    <p style={{ paddingBottom: "5px", width: "100%"}}>{description}</p>
-                    <div style={{ paddingBottom: "5px"}}>
+                    <p style={{ paddingBottom: "5px", width: "100%" }}>{description}</p>
+                    <div style={{ paddingBottom: "5px" }}>
                         <BsMusicNoteBeamed style={{ transform: "translateY(3px)", marginRight: "5px" }} />
                         <span>Nhạc nền - </span>
                         <span>{songName}</span>
                     </div>
 
                 </div>
-                <div className="row" style={{minWidth: "396px"}}>
-                    <video style={{ height: "495px", width: "280px", border: "1px #333 solid", borderRadius: "10px" }} controls>
+                <div className="row" style={{ minWidth: "396px" }}>
+                    <video ref = {videoElement}
+                        style={{ height: "495px", width: "280px", border: "1px #333 solid", borderRadius: "10px" }} controls>
                         <source src={video} />
                     </video>
                     <div className="action-wrap">
@@ -71,6 +75,20 @@ function FollowBtn() {
 }
 
 function Content({ dataBases }) {
+
+    // const [isPlay, setIsPlay] = useState(false)
+
+    // useEffect(() => {
+    //     window.addEventListener('scroll', handleScroll)
+    //     return () => {
+    //         window.removeEventListener('scroll', handleScroll)          
+    //     }
+    // }, [])
+
+
+    // const handleScroll = (e) => {
+       
+    // }
     return (
 
         <div className="content">
