@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import {  useState, useRef } from 'react'
 
 import './Navbar.css'
 import { AiFillHome } from 'react-icons/ai'
@@ -8,19 +8,52 @@ const COMPACT_BTN_TITLE = 'See less'
 const MAX_ITEM_SUGGEST = 10
 const DEFAULT_ITEM_SUGGEST = 4
 
+const suggestData = [
+    {
+        account: 'kingdomc21',
+        username: 'KINGDOMC',
+        avatar: 'https://haycafe.vn/wp-content/uploads/2021/11/Avatar-Free-Fire-ngau-chat-nu.jpg',
+    },
+    {
+        account: 'vnn.official',
+        username: 'VN NGÀY NAY',
+        avatar: 'https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-facebook-chat-bua-hai-thuoc.jpg',
+    },
+    {
+        account: 'hoaa.hanasii',
+        username: 'Đào Lê Phương Nga',
+        avatar: 'https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat.jpg',
+    },
+    {
+        account: 'tiin.vn',
+        username: 'tiin.vn',
+        avatar: 'https://haycafe.vn/wp-content/uploads/2021/11/Avatar-meo-cute-hai-huoc.jpg',
+    },
+    {
+        account: 'kienreview90',
+        username: 'Kien Review',
+        avatar: 'https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-bts-chat-ngau.jpg',
+    },
+    {
+        account: 'linhbarbie',
+        username: 'Linh Barbie',
+        avatar: 'https://haycafe.vn/wp-content/uploads/2021/11/Avatar-ngau-lanh-lung-anime-girl-deo-khau-trang-den.jpg',
+    },
+]
+
 function SuggestNav() {
 
     const sugNav = useRef()
     const [sugNavExtra, setSugNavExtra] = useState(EX_BTN_TITLE)
     const [maxItem, setMaxItem] = useState(DEFAULT_ITEM_SUGGEST)
-    const [suggestList, setSuggestList] = useState([])
+    // const [suggestList, setSuggestList] = useState([])
 
-    useEffect(() => {
-        const urlAPI = 'http://localhost:5000/tiktoksuggest'
-        fetch(urlAPI)
-            .then((response) => response.json())
-            .then(listData => setSuggestList(listData))
-    }, [])
+    // useEffect(() => {
+    //     const urlAPI = 'http://localhost:5000/tiktoksuggest'
+    //     fetch(urlAPI)
+    //         .then((response) => response.json())
+    //         .then(listData => setSuggestList(listData))
+    // }, [])
 
     const handleSeeAll = () => {
         if (sugNav) {
@@ -40,7 +73,7 @@ function SuggestNav() {
             <h4 style={{ color: 'rgba(0,0,0, 0.5)', fontSize: '15px', paddingTop: "14px" }}>Suggested accounts</h4>
             <ul ref={sugNav}
                 className="suggest-nav">
-                {suggestList.map((item, index) => {
+                {suggestData.map((item, index) => {
 
                     return index < maxItem ? (
                         <li key={index}
@@ -51,7 +84,7 @@ function SuggestNav() {
                                 <p style={{ fontWeight: "400", color: "rgba(0,0,0, 0.5)", fontSize: "12px", lineHeight: "12px" }}>{item.username}</p>
                             </a>
                         </li>
-                    ) : <></>
+                    ) : <li key={index}></li>
 
                 })}
             </ul>
