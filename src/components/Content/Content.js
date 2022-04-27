@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react'
+import { useRef } from 'react'
 import { BsMusicNoteBeamed, BsFillHeartFill } from "react-icons/bs";
 import { FaCommentDots, FaShare } from "react-icons/fa"
 import './Content.css'
@@ -14,7 +14,7 @@ function Header({ avatar, username, account }) {
             </div>
             <div className="col l-8 m-8 c-8">
                 <div className="row">
-                    <a href="#" style={{ textDecoration: "none", color: "#333", paddingBottom: "5px" }}>
+                    <a href="#1" style={{ textDecoration: "none", color: "#333", paddingBottom: "5px" }}>
                         <span style={{ fontWeight: "bold", paddingRight: "5px" }}>{account}</span>
                         <span>{username}</span>
                     </a>
